@@ -108,8 +108,31 @@ setInterval (function () {
 }, 400);
 ```
 
+In 2017 Facebook introduced mentions of you in comments from others which are listed among your own comments in the Activity Log (which is dumb, but what can you do). Here's a quick and dirty workaround:
 
-If you find a bug, have a question or want a feature to be added, open [an issue](https://github.com/IonicaBizau/reset-your-facebook-account/issues).
+```js
+let counter = 0;
+
+$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+setInterval (function () {
+  var last = $("._6a._6b.uiPopover.rfloat a span").last().click();
+  
+  if (counter < 20) {
+    counter++;
+    $("span:contains(Delete):visible").click();
+    var post = last.closest("[data-ft]");
+    post.prev().remove();
+    post.remove();
+  } else {
+    var post = last.closest("tbody");
+    post.prev().remove();
+    post.remove();
+    counter = 0;
+  }
+}, 400);
+```
+
+The workaround might miss some of the comments that should be deleted, so make sure that you check the comments list again to either manually delete the missed comments or to run the script again.
 
 ## Delete messages
 
