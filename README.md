@@ -11,11 +11,53 @@
 
 ## Prerequisites
 
-
 Install [this Chrome extension](https://chrome.google.com/webstore/detail/jquery-injector/ekkjohcjbjcjjifokpingdbdlfekjcgi?hl=en) or [this Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey) to include jQuery on the page.
 
-
 Replace `your-facebook-username` in URLs with your Facebook username. Then start hacking. :smile:
+
+## Instructions
+
+### Go to Activity Log on Facebook
+
+You can either click on the links in each of the categories listed below (Likes, Posts, Comments etc.) or navigate to the Activity Log yourself: 
+
+![](img/navigate-activity-log.png)
+
+Go to Facebook > Click on the carret on the right side of the navigation bar > Select Activity Log > Select the category you'd like to delete.
+
+> If you'd like to filter by year, add `&year=2015` at the end of the URL. This way you'll only delete items from that year.
+
+### Open Developer tools
+
+Right click anywhere on the screen and select **Inspect element**.
+
+When a new window pops up somewhere on your screen, click on the **Console** tab.
+
+You'll be greeted with a scary Facebook message, but just ignore it.
+
+![](img/developer-tools.png)
+
+### Inject jQuery
+
+If you've followed [Prerequisites](#Prerequisites), then you have the jQuery extension installed.
+
+Click on the extension icon and select **Inject into page**:
+
+![](img/inject-jquery.png)
+
+If everything went well, you should see something like this printed at the bottom of the console:
+
+	jQuery(//code.jquery.com/jquery-3.3.1.min.js) loaded.
+
+### Copy/paste the code snippet
+
+Copy one of the code snippets listed below and paste it into the console, just below "JQuery ... loaded" line:
+
+![](img/paste-code.png)
+
+Then click enter and let the magic begin. :)
+
+> In-between the Facebook page might reload so you'll need to repeat the process (injecting jQuery and pasting the code again).
 
 ## Likes
 
@@ -43,6 +85,9 @@ setInterval (function () {
   $("span:contains(Delete):visible").click();
   setTimeout(function () {
     $("button:contains(Delete Post):visible").click();
+    setTimeout(function () {
+        $("button:contains(Delete):visible").click();
+    }, 2000);
     last.closest("table").remove();
   }, 1000);
 }, 7000);
